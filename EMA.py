@@ -1,3 +1,5 @@
+import random
+test_data = [round(random.uniform(10, 100), 2) for _ in range(100)]
 def mean(pastprices, length):
     sum = 0
     for i in range(length):
@@ -15,13 +17,11 @@ def emacalc(pastprices,length):
         print(i)
         ema[i] = (pastprices[i+4] - ema[i-1]) * multiplier + ema[i-1]
     return ema
-print(emacalc([10, 11, 11.5, 10.75, 12, 11.75, 12.25, 14, 16, 17, 15.6, 15.75, 16, 14, 16.5, 17, 17.25, 18, 18.75,
-20], 5))
+print(emacalc(test_data, 5))
 def MACDline(pastprices):
-    Macdline=[] 
+    Macdline=[]  
     for i in range(len(emacalc(pastprices, 26))):
         Macdline.append(emacalc(pastprices, 12)[i] - emacalc(pastprices, 26)[i])
     signaline = emacalc(Macdline, 9)
     return Macdline, signaline
-print(MACDline([10, 11, 11.5, 10.75, 12, 11.75, 12.25, 14, 16, 17, 15.6, 15.75, 16, 14, 16.5, 17, 17.25, 18, 18.75,
-20]))
+print(MACDline(test_data))
