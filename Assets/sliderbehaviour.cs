@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor.Scripting.Python;
 
 public class sliderbehaviour : MonoBehaviour
 {
@@ -26,13 +27,15 @@ public class sliderbehaviour : MonoBehaviour
     private List<float> shareslist;
     private List<float> moneylist;
     private List<float> dayslist;
+    public List<float> ROC;
+    public List<float> SMA;
     public List<GameObject> candles;
     public GameObject samplecandle;
     public float scale = 10f;
     public GameObject previouscandle;
     public float spacing =0.3f;
     private Transform wick;
-    public float days;
+    public float days = 30f;
     public float stocks;
     public float money = 1000f;
     public bool candup;
@@ -40,28 +43,30 @@ public class sliderbehaviour : MonoBehaviour
     public TextMeshProUGUI moneytxt;
     public TextMeshProUGUI sharestxt;
     public float randomset;
+    public LineRenderer indicatorchart;
+    public GameObject indicatorplotter;
+    public GameObject buttonbuyE;
+    public GameObject buttonsellE;
+    public GameObject buttonbuyH;
+    public GameObject buttonsellH;
+    public GameObject next;
+    public GameObject sidebar;
+    public GameObject Home;
+    public GameObject chat;
+    public GameObject learning;
+    public GameObject settings;
+    public GameObject challenge;
+    public GameObject locked;
+    public GameObject unlocked;
+    public float sum14;
     // Start is called before the first frame update
     void Start()
     {
         randomset = (int)UnityEngine.Random.Range(1, 4);
-        if (randomset==1){
-                    open = HCLopen;
+        open = HCLopen;
         close = HCLclose;
         high = HCLhigh;
         low = HCLlow;
-        }
-        else if (randomset==2){
-                    open = TSopen;
-        close = TSclose;
-        high = TShigh;
-        low = TSlow;
-        }
-        else if (randomset==3){
-                    open = WIPROopen;
-        close = WIPROclose;
-        high = WIPROhigh;
-        low = WIPROlow;
-        }
         
         updatecandles();
     }
@@ -78,8 +83,20 @@ public class sliderbehaviour : MonoBehaviour
         sharestxt.text = "Shares: " + stocks.ToString();
     }
     public void movecontainer(float x){
-        investmentcontainer.transform.position = new Vector3(50-x*investmentcontainer.transform.localScale.x, investmentcontainer.transform.localPosition.y, investmentcontainer.transform.localPosition.z);
-        indicatorcontainer.transform.position = new Vector3(50-x*indicatorcontainer.transform.localScale.x, indicatorcontainer.transform.localPosition.y, indicatorcontainer.transform.localPosition.z);
+        transform.position = new Vector3(100f*x, transform.position.y, transform.position.z);
+        buttonbuyE.transform.position = new Vector3(-3.5f+100f*x, buttonbuyE.transform.position.y, buttonbuyE.transform.position.z);
+        buttonsellE.transform.position = new Vector3(-6f+100f*x, buttonsellE.transform.position.y, buttonsellE.transform.position.z);
+        buttonbuyH.transform.position = new Vector3(-3.5f+100f*x, buttonbuyH.transform.position.y, buttonbuyH.transform.position.z);
+        buttonsellH.transform.position = new Vector3(-6f+100f*x, buttonsellH.transform.position.y, buttonsellH.transform.position.z);
+        next.transform.position = new Vector3(-1f+100f*x, next.transform.position.y, next.transform.position.z);
+        sidebar.transform.position = new Vector3(-8.5f+100f*x, sidebar.transform.position.y, sidebar.transform.position.z);
+        Home.transform.position = new Vector3(-8.45f+100f*x, Home.transform.position.y, Home.transform.position.z);
+        chat.transform.position = new Vector3(-8.4f+100f*x, chat.transform.position.y, chat.transform.position.z);
+        learning.transform.position = new Vector3(-8.4f+100f*x, learning.transform.position.y, learning.transform.position.z);
+        settings.transform.position = new Vector3(-8.45f+100f*x, settings.transform.position.y, settings.transform.position.z);
+        challenge.transform.position = new Vector3(-8.45f+100f*x, challenge.transform.position.y, challenge.transform.position.z);
+        locked.transform.position = new Vector3(-8.7f+100f*x, locked.transform.position.y, locked.transform.position.z);
+        unlocked.transform.position = new Vector3(-9.5f+100f*x, unlocked.transform.position.y, unlocked.transform.position.z);
     }
     public void updatecandles(){
         foreach (GameObject can in candles){
@@ -105,5 +122,29 @@ public class sliderbehaviour : MonoBehaviour
             candles.Add(can);
             previouscandle=can;
         }
+        calculatesum14();
+        PythonRunner.RunFile("Assets/ROC Indicator.py");
+        PythonRunner.RunFile("Assets/SMA Indicator.py");
+        drawindicator();
+    }
+    public void calculatesum14(){
+        int sum = 0;
+        for (int i = (int)(days); i > (int)(days-14f); i--){
+            sum += (int)(close[i]);
+        }
+        sum14=(float)sum;
+    }
+    public void drawindicator(){
+        List<Vector3> indipoints = new List<Vector3>();
+        // for (int i = 0; i < ROC.Count; i++){
+        //     indipoints.Add((new Vector3(9f+spacing*i, -1f+(float)(ROC[i])/10f, -5f)));
+        // }
+        for (int i = 0; i < SMA.Count; i++){
+            indipoints.Add((new Vector3(9f+spacing*i, -2f+(float)(SMA[i])/800f, -5f)));
+        }
+        indicatorchart.positionCount = indipoints.Count;
+        indicatorchart.startWidth = 0.1f;
+        indicatorchart.endWidth = 0.1f;
+        indicatorchart.SetPositions(indipoints.ToArray());
     }
 }
