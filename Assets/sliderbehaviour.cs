@@ -11,10 +11,6 @@ public class sliderbehaviour : MonoBehaviour
     public List<float> close;
     public List<float> high;
     public List<float> low;
-    public List<float> BRITopen;
-    public List<float> BRITclose;
-    public List<float> BRIThigh;
-    public List<float> BRITlow;
     public List<float> HCLopen;
     public List<float> HCLclose;
     public List<float> HCLhigh;
@@ -23,10 +19,6 @@ public class sliderbehaviour : MonoBehaviour
     public List<float> TSclose;
     public List<float> TShigh;
     public List<float> TSlow;
-    public List<float> TCSopen;
-    public List<float> TCSclose;
-    public List<float> TCShigh;
-    public List<float> TCSlow;
     public List<float> WIPROopen;
     public List<float> WIPROclose;
     public List<float> WIPROhigh;
@@ -47,9 +39,30 @@ public class sliderbehaviour : MonoBehaviour
     public TextMeshProUGUI daystxt;
     public TextMeshProUGUI moneytxt;
     public TextMeshProUGUI sharestxt;
+    public float randomset;
     // Start is called before the first frame update
     void Start()
     {
+        randomset = (int)UnityEngine.Random.Range(1, 4);
+        if (randomset==1){
+                    open = HCLopen;
+        close = HCLclose;
+        high = HCLhigh;
+        low = HCLlow;
+        }
+        else if (randomset==2){
+                    open = TSopen;
+        close = TSclose;
+        high = TShigh;
+        low = TSlow;
+        }
+        else if (randomset==3){
+                    open = WIPROopen;
+        close = WIPROclose;
+        high = WIPROhigh;
+        low = WIPROlow;
+        }
+        
         updatecandles();
     }
 
@@ -77,9 +90,9 @@ public class sliderbehaviour : MonoBehaviour
             GameObject can = Instantiate(samplecandle, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity, samplecandle.transform.parent);
             can.SetActive(true);
             can.transform.localScale = new Vector3(0.0025f, (float)(open[i]-close[i])/(3f*scale), 1f);
-            can.transform.position = new Vector3(previouscandle.transform.position.x+spacing, 1f+(float)(open[i]+close[i])/(2*scale), 0);
+            can.transform.position = new Vector3(previouscandle.transform.position.x+spacing, 1f+(float)((open[i]+close[i])-1400f)/(2*scale), 0);
             wick = can.transform.GetChild(0);
-            wick.position = new Vector3(can.transform.position.x, 1f+(float)(high[i]+low[i])/(2f*scale), 0f);
+            wick.position = new Vector3(can.transform.position.x, 1f+(float)(high[i]+low[i]-1400f)/(2f*scale), 0f);
             wick.localScale = new Vector3(0.2f, (float)(high[i]-low[i])/(3f*scale*can.transform.localScale.y), 1f);
             if (open[i] > close[i]){
                 can.GetComponent<SpriteRenderer>().color = Color.red;
