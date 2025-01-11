@@ -16,6 +16,9 @@ public class sliderbehaviour : MonoBehaviour
     public GameObject previouscandle;
     public float spacing =0.3f;
     private Transform wick;
+    public float days;
+    public float stocks;
+    public float money = 1000f;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +38,7 @@ public class sliderbehaviour : MonoBehaviour
         foreach (GameObject can in candles){
             Destroy(can);
         }
-        for(int i = 0; i < open.Count; i++){
+        for(int i = 0; i < days; i++){
             GameObject can = Instantiate(samplecandle, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity, samplecandle.transform.parent);
             can.SetActive(true);
             can.transform.localScale = new Vector3(0.0025f, (float)(open[i]-close[i])/(3f*scale), 1f);
@@ -43,6 +46,14 @@ public class sliderbehaviour : MonoBehaviour
             wick = can.transform.GetChild(0);
             wick.position = new Vector3(can.transform.position.x, 1f+(float)(high[i]+low[i])/(2f*scale), 0f);
             wick.localScale = new Vector3(0.2f, (float)(high[i]-low[i])/(3f*scale*can.transform.localScale.y), 1f);
+            if (open[i] > close[i]){
+                can.GetComponent<SpriteRenderer>().color = Color.red;
+                wick.GetComponent<SpriteRenderer>().color = Color.red;
+            }
+            else{
+                can.GetComponent<SpriteRenderer>().color = Color.green;
+                wick.GetComponent<SpriteRenderer>().color = Color.green;
+            }
             candles.Add(can);
             previouscandle=can;
         }

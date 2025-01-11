@@ -55,6 +55,6 @@ public class homeButton : MonoBehaviour
     }
     public void OnMouseDown()
     {
-        SceneManager.LoadScene("Home");
+        SceneManager.LoadScene("HomePage");
     }
 }
