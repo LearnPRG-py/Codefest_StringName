@@ -13,6 +13,7 @@ public class AIbutton : MonoBehaviour
     public SpriteRenderer sideBarRenderer;
     public GameObject aibutton;
     public SpriteRenderer aibuttonRenderer;
+    public TextMeshProUGUI challengeText;
     public Color aibuttonColor;
     public TextMeshProUGUI homeText;
     public TextMeshProUGUI settingsText;
@@ -36,11 +37,13 @@ public class AIbutton : MonoBehaviour
     {
         aibuttonColor.a = 0.5f;
         aibuttonRenderer.color = aibuttonColor;
-        sideBarRenderer.transform.localScale = new Vector3(5f, 10f, 0f);
+        sideBarRenderer.transform.localScale = new Vector3(6f, 10f, 0f);
         homeText.text = "Home";
-        AIText.text = "AI";
+        AIText.text = "AI Chatbot";
         settingsText.text = "Settings";
         LessonsText.text = "Lessons";
+        challengeText.text = "Challenge";
+
     }
     public void OnMouseExit()
     {
@@ -48,6 +51,7 @@ public class AIbutton : MonoBehaviour
         homeText.text = "";
         AIText.text = "";
         LessonsText.text = "";
+        challengeText.text = "";
         settingsText.text = "";
 
         aibuttonColor.a = 1f;

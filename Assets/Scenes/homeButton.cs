@@ -15,6 +15,7 @@ public class homeButton : MonoBehaviour
     public Color buttonColor;
     public TextMeshProUGUI homeText;
     public TextMeshProUGUI AIText;
+    public TextMeshProUGUI challengeText;
     public TextMeshProUGUI settingsText;
     public TextMeshProUGUI LessonsText;
     void Start()
@@ -34,11 +35,12 @@ public class homeButton : MonoBehaviour
     {
         buttonColor.a = 0.5f;
         buttonRenderer.color = buttonColor;
-        sideBarRenderer.transform.localScale = new Vector3(5f, 10f, 0f);
+        sideBarRenderer.transform.localScale = new Vector3(6f, 10f, 0f);
         homeText.text = "Home";
-        AIText.text = "AI";
+        AIText.text = "AI Chatbot";
         LessonsText.text = "Lessons";
         settingsText.text = "Settings";
+        challengeText.text = "Challenge";
     }
     public void OnMouseExit()
     {
@@ -49,6 +51,7 @@ public class homeButton : MonoBehaviour
         AIText.text = "";
         LessonsText.text = "";
         settingsText.text = "";
+        challengeText.text = "";
     }
     public void OnMouseDown()
     {
