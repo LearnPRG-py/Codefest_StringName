@@ -10,7 +10,7 @@ using System.IO;
 public class getAIworking : MonoBehaviour
 {
     
-    private string apikey = "apikey";
+    private string apikey = "apikeyhere";
     private string apiurl = "https://api.openai.com/v1/chat/completions";
     // Start is called before the first frame update
     void Start()

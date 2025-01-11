@@ -1036,6 +1036,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1123,10 +1124,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   investmentcontainer: {fileID: 904044057}
   indicatorcontainer: {fileID: 509230594}
-  open: 0500000005000000050000000500000005000000
-  close: 0300000003000000030000000300000003000000
-  high: 0a0000000a0000000a0000000a0000000a000000
-  low: 0000000000000000000000000000000000000000
+  open:
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
+  close:
+  - 3
+  - 3
+  - 3
+  - 3
+  - 3
+  high:
+  - 10
+  - 10
+  - 10
+  - 10
+  - 10
+  low:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  BRITopen: []
+  BRITclose: []
+  BRIThigh: []
+  BRITlow: []
+  HCLopen: []
+  HCLclose: []
+  HCLhigh: []
+  HCLlow: []
+  TSopen: []
+  TSclose: []
+  TShigh: []
+  TSlow: []
+  TCSopen: []
+  TCSclose: []
+  TCShigh: []
+  TCSlow: []
+  WIPROopen: []
+  WIPROclose: []
+  WIPROhigh: []
+  WIPROlow: []
   candles: []
   samplecandle: {fileID: 393735311}
   scale: 10
@@ -1139,6 +1180,18 @@ MonoBehaviour:
   daystxt: {fileID: 252683998}
   moneytxt: {fileID: 221068910}
   sharestxt: {fileID: 930586189}
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c96ccd698c6f4a2582f39ccab58c4e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &551007066
 GameObject:
   m_ObjectHideFlags: 0
