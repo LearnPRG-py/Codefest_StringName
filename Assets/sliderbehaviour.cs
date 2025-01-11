@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class sliderbehaviour : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class sliderbehaviour : MonoBehaviour
     public List<int> close;
     public List<int> high;
     public List<int> low;
+    private List<int> shareslist;
+    private List<int> moneylist;
+    private List<int> dayslist;
     public List<GameObject> candles;
     public GameObject samplecandle;
     public float scale = 10f;
@@ -19,6 +23,10 @@ public class sliderbehaviour : MonoBehaviour
     public float days;
     public float stocks;
     public float money = 1000f;
+    public bool candup;
+    public TextMeshProUGUI daystxt;
+    public TextMeshProUGUI moneytxt;
+    public TextMeshProUGUI sharestxt;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +36,13 @@ public class sliderbehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (candup == true){
+            updatecandles();
+            candup = false;
+        }
+        daystxt.text = "Days: " + days.ToString();
+        moneytxt.text = "Money: " + money.ToString();
+        sharestxt.text = "Shares: " + stocks.ToString();
     }
     public void movecontainer(float x){
         investmentcontainer.transform.position = new Vector3(50-x*investmentcontainer.transform.localScale.x, investmentcontainer.transform.localPosition.y, investmentcontainer.transform.localPosition.z);
@@ -38,6 +52,7 @@ public class sliderbehaviour : MonoBehaviour
         foreach (GameObject can in candles){
             Destroy(can);
         }
+        previouscandle=samplecandle;
         for(int i = 0; i < days; i++){
             GameObject can = Instantiate(samplecandle, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity, samplecandle.transform.parent);
             can.SetActive(true);

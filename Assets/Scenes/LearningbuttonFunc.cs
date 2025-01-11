@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 
 
-public class Learningbuttonfunc : MonoBehaviour
+public class LearningbuttonFunc : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject Learningbutton;

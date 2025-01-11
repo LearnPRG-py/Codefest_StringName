@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class sellbutton : MonoBehaviour
+public class nextbutton : MonoBehaviour
 {
     public sliderbehaviour data;
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -18,9 +17,9 @@ public class sellbutton : MonoBehaviour
         
     }
     public void OnMouseDown(){
-        if(data.stocks >= 1){
-        data.money += (data.close[(int)data.days]+data.open[(int)data.days])/2;
-        data.stocks -= 1;
+        if(data.days < data.open.Count-1){
+        data.days += 1;
+        data.candup = true;
         }
     }
 }

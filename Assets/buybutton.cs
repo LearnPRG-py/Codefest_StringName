@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class sellbutton : MonoBehaviour
+public class buybutton : MonoBehaviour
 {
     public sliderbehaviour data;
     
@@ -18,9 +18,9 @@ public class sellbutton : MonoBehaviour
         
     }
     public void OnMouseDown(){
-        if(data.stocks >= 1){
-        data.money += (data.close[(int)data.days]+data.open[(int)data.days])/2;
-        data.stocks -= 1;
+        if (data.money >(data.close[(int)data.days]+data.open[(int)data.days])/2){
+        data.money -= (data.close[(int)data.days]+data.open[(int)data.days])/2;
+        data.stocks += 1;
         }
     }
 }
