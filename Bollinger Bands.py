@@ -11,21 +11,19 @@ def calculate_SMA(prices, periodOfTime, i):
 SMA = calculate_SMA
 
 def calculate_SD(price, periodOfTime, i):
-    for u in price:
+    for i in price:
         ToBeSummed += (price - SMA)*(price - SMA)
     SD = (ToBeSummed / periodOfTime) * (-1/2)
 
 SD = calculate_SD
 
 def calculate_ub(price, periodOfTime, i):
-    for i in price:
-        ub = SMA + (SD * 2)
+    ub = SMA + (SD * 2)
     
 UB = calculate_ub
 
 def calculate_lb(price, periodOfTime, i):
-    for i in price:
-        lb = SMA - (SD * 2)
+    lb = SMA - (SD * 2)
 
 LB = calculate_lb
 
