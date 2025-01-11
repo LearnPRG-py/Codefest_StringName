@@ -5,22 +5,22 @@ using TMPro;
 using UnityEngine.SceneManagement;
 
 
-public class homeButton : MonoBehaviour
+public class SettingsbuttonFunc : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject homebutton;
-    public SpriteRenderer buttonRenderer;
-    public GameObject sideBar;
-    public SpriteRenderer sideBarRenderer;
-    public Color buttonColor;
+    public GameObject Settingsbutton;
+    public SpriteRenderer SettingsbuttonRenderer;
+    public Color SettingsbuttonColor;
     public TextMeshProUGUI homeText;
     public TextMeshProUGUI AIText;
     public TextMeshProUGUI settingsText;
     public TextMeshProUGUI LessonsText;
+    public GameObject sideBar;
+    public SpriteRenderer sideBarRenderer;
     void Start()
     {
-        buttonRenderer = homebutton.GetComponent<SpriteRenderer>();
-        buttonColor = buttonRenderer.color;
+        SettingsbuttonRenderer = Settingsbutton.GetComponent<SpriteRenderer>();
+        SettingsbuttonColor = SettingsbuttonRenderer.color;
         sideBarRenderer = sideBar.GetComponent<SpriteRenderer>();
 
     }
@@ -32,26 +32,27 @@ public class homeButton : MonoBehaviour
     }
     public void OnMouseOver()
     {
-        buttonColor.a = 0.5f;
-        buttonRenderer.color = buttonColor;
+        SettingsbuttonColor.a = 0.5f;
+        SettingsbuttonRenderer.color = SettingsbuttonColor;
         sideBarRenderer.transform.localScale = new Vector3(5f, 10f, 0f);
         homeText.text = "Home";
         AIText.text = "AI";
-        LessonsText.text = "Lessons";
         settingsText.text = "Settings";
+        LessonsText.text = "Lessons";
     }
     public void OnMouseExit()
     {
-        buttonColor.a = 1f;
-        buttonRenderer.color = buttonColor;
+        SettingsbuttonColor.a = 1f;
+        SettingsbuttonRenderer.color = SettingsbuttonColor;
         sideBarRenderer.transform.localScale = new Vector3(1f, 10f, 0f);
         homeText.text = "";
         AIText.text = "";
         LessonsText.text = "";
         settingsText.text = "";
+
     }
     public void OnMouseDown()
     {
-        SceneManager.LoadScene("Home");
+        SceneManager.LoadScene("Settings");
     }
 }

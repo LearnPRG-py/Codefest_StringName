@@ -10,6 +10,7 @@ public class sidebarscript : MonoBehaviour
     public SpriteRenderer sideBarRenderer;
     public TextMeshProUGUI homeText;
     public TextMeshProUGUI AIText;
+    public TextMeshProUGUI settingsText;
     public TextMeshProUGUI LessonsText;
     // public Color color;
     // public float speed = 1f;
@@ -26,10 +27,10 @@ public class sidebarscript : MonoBehaviour
     }
     public void OnMouseOver()
     {
-        Debug.Log("OnMouseOver");
         sideBarRenderer.transform.localScale = new Vector3(5f, 10f, 0f);
         homeText.text = "Home";
         AIText.text = "AI";
+        settingsText.text = "Settings";
         LessonsText.text = "Lessons";
     }
     public void OnMouseExit()
@@ -38,18 +39,7 @@ public class sidebarscript : MonoBehaviour
         homeText.text = "";
         AIText.text = "";
         LessonsText.text = "";
-    }
-    public void OnMouseDown()
-    {
-        // if (!extend)
-        // {
-        //     sideBar.transform.Translate(Vector3.right * speed * Time.deltaTime);
-        //     extend = true;
-        // }
-        // else
-        // {
-        //     sideBar.transform.Translate(Vector3.right * speed * Time.deltaTime);
-        //     extend = false;
-        // }
+        settingsText.text = "";
+
     }
 }
