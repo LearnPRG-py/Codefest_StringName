@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class homeButton : MonoBehaviour
+public class AIbutton : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject homebutton;
+    public GameObject aibutton;
     public SpriteRenderer buttonRenderer;
     public Color buttonColor;
     void Start()
     {
-        buttonRenderer = homebutton.GetComponent<SpriteRenderer>();
+        buttonRenderer = aibutton.GetComponent<SpriteRenderer>();
         buttonColor = buttonRenderer.color;
     }
 
