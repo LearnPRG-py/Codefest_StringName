@@ -1,4 +1,6 @@
 import pandas as pd
-int SMA;
-def calculate_SMA(price, N, i):
-    
+SMA = 0;
+
+def calculate_SMA(, periodOfTime, i):
+    for i in range(periodOfTime):
+
