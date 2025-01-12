@@ -73,11 +73,12 @@ public class sliderbehaviour : MonoBehaviour
     public float LL26;
     public float HH52;
     public float LL52;
-    public List<float> tks;
-    public List<float> kjs;
-    public List<float> senA;
-    public List<float> senB;
-    public List<float> chikou;
+    public float sd14;
+    public List<float> UBlist;
+    public List<float> LBlist;
+    public bool Bollinger;
+    public bool roc;
+    public bool sma;
     // Start is called before the first frame update
     void Start()
     {
@@ -114,7 +115,6 @@ public class sliderbehaviour : MonoBehaviour
         learning.transform.position = new Vector3(-8.4f+100f*x, learning.transform.position.y, learning.transform.position.z);
         settings.transform.position = new Vector3(-8.45f+100f*x, settings.transform.position.y, settings.transform.position.z);
         challenge.transform.position = new Vector3(-8.45f+100f*x, challenge.transform.position.y, challenge.transform.position.z);
-        locked.transform.position = new Vector3(-8.7f+100f*x, locked.transform.position.y, locked.transform.position.z);
         unlocked.transform.position = new Vector3(-9.5f+100f*x, unlocked.transform.position.y, unlocked.transform.position.z);
     }
     public void updatecandles(){
@@ -148,10 +148,10 @@ public class sliderbehaviour : MonoBehaviour
         LL260();
         HH520();
         LL520();
-
+        calcsd14();
         PythonRunner.RunFile("Assets/ROC Indicator.py");
         PythonRunner.RunFile("Assets/SMA Indicator.py");
-        PythonRunner.RunFile("Assets/ichimokucloud.py");
+        PythonRunner.RunFile("Assets/Bollinger Bands.py");
         drawindicator();
     }
     public void calculatesum14(){
@@ -160,6 +160,13 @@ public class sliderbehaviour : MonoBehaviour
             sum += (int)(close[i]);
         }
         sum14=(float)sum;
+    }
+    public void calcsd14(){
+        float sum = 0f;
+        for (int i = (int)(days); i > (int)(days-14f); i--){
+            sum += (close[i]-sum14/14f)*(close[i]-sum14/14f);
+        }
+        sd14 = Mathf.Sqrt(sum/14f);
     }
     public void HH90(){
         float HH = 0f;
@@ -215,33 +222,45 @@ public class sliderbehaviour : MonoBehaviour
         }
         LL52 = LL;
     }
+    public void b1(){
+        Bollinger=true;
+        roc=false;
+        sma=false;
+        updatecandles();
+    }
+    public void b2(){
+        Bollinger=false;
+        roc=true;
+        sma=false;
+        updatecandles();
+    }
+    public void b3(){
+        Bollinger=false;
+        roc=false;
+        sma=true;
+        updatecandles();
+    }
     public void drawindicator(){
         List<Vector3> indipoints = new List<Vector3>();
         List<Vector3> indipoints2 = new List<Vector3>();
         List<Vector3> indipoints3 = new List<Vector3>();
         List<Vector3> indipoints4 = new List<Vector3>();
         List<Vector3> indipoints5 = new List<Vector3>();
-        // for (int i = 0; i < ROC.Count; i++){
-        //     indipoints.Add((new Vector3(9f+spacing*i, -1f+(float)(ROC[i])/10f, -5f)));
-        // }
-        // for (int i = 0; i < SMA.Count; i++){
-        //     indipoints.Add((new Vector3(18.6f+spacing*i, -2f+(float)(SMA[i])/800f, -5f)));
-        // }
-        for (int i = 0; i < tks.Count; i++){
-            indipoints.Add((new Vector3(18.6f+spacing*i, 1f+(float)((tks[i])-700f)/(2f*scale), -5f)));
+        if (roc==true){
+        for (int i = 0; i < ROC.Count; i++){
+            indipoints.Add((new Vector3(18.6f+spacing*i, -1f+(float)(ROC[i])/10f, -5f)));
+        }}
+        if (sma==true){
+        for (int i = 0; i < SMA.Count; i++){
+            indipoints.Add((new Vector3(18.6f+spacing*i, -2f+(float)(SMA[i]-600f)/200f, -5f)));
+        }}
+        if (Bollinger==true){
+        for (int i = 0; i < UBlist.Count; i++){
+            indipoints.Add((new Vector3(18.6f+spacing*i, 1f+(float)((UBlist[i])-700f)/(scale), -5f)));
         }
-        for (int i = 0; i < kjs.Count; i++){
-            indipoints2.Add((new Vector3(18.6f+spacing*i, 1f+(float)((kjs[i])-700f)/(2f*scale), -5f)));
-        }
-        for (int i = 0; i < senA.Count; i++){
-            indipoints3.Add((new Vector3(18.6f+spacing*i, 1f+(float)((senA[i])-700f)/(2f*scale), -5f)));
-        }
-        for (int i = 0; i < senB.Count; i++){
-            indipoints4.Add((new Vector3(18.6f+spacing*i, 1f+(float)((senB[i])-700f)/(2f*scale), -5f)));
-        }
-        for (int i = 0; i < chikou.Count; i++){
-            indipoints5.Add((new Vector3(18.6f+spacing*i, 1f+(float)((chikou[i])-700f)/(2f*scale), -5f)));
-        }
+        for (int i = 0; i < LBlist.Count; i++){
+            indipoints2.Add((new Vector3(18.6f+spacing*i, 1f+(float)((LBlist[i])-700f)/(scale), -5f)));
+        }}
         indicatorchart.positionCount = indipoints.Count;
         indicatorchart.startWidth = 0.01f;
         indicatorchart.endWidth = 0.01f;

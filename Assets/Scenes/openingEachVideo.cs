@@ -20,7 +20,7 @@ public class openingEachVideo : MonoBehaviour
     }
     public void OnMouseDown()
     {
-        Debug.Log("OnMouseDown");
+        Debug.Log(picture.name);
         SceneManager.LoadScene(picture.name);
     }
 }
