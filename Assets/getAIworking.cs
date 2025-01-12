@@ -12,10 +12,10 @@ public class getAIworking : MonoBehaviour
     
     private string apikey = "apikeyhere";
     private string apiurl = "https://api.openai.com/v1/chat/completions";
+    public string command = "";
     // Start is called before the first frame update
     void Start()
     {
-        _ = GetGPTResponse();
     }
 
     // Update is called once per frame
@@ -23,11 +23,15 @@ public class getAIworking : MonoBehaviour
     {
         
     }
-
+    public void getcommand(string cmd){
+        command=cmd;
+        _ = GetGPTResponse();
+    }
     private async Task GetGPTResponse()
     {
         using (HttpClient client = new HttpClient())
         {
+            if (command != ""){
             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apikey}");
             client.DefaultRequestHeaders.Add("OpenAI-Beta", "assistants=v2");
             var requestBody = new
@@ -51,6 +55,6 @@ public class getAIworking : MonoBehaviour
             string responseString = await response.Content.ReadAsStringAsync();
 
             Debug.Log(responseString);
-        }
+        }}
     }
 }
